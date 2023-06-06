@@ -4,7 +4,7 @@
     "slug": "biscoito",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/cookie.jpg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
