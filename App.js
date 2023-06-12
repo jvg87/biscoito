@@ -1,29 +1,11 @@
 import { useState } from 'react';
 import { Image ,StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+import { sentences } from './src/data';
+
 export default function App() {
   const [img, setImg] = useState(require('./src/biscoito.png'));
   const [text, setText] = useState('');
-
-  let sentences = [
-    'No começo é difícil, mas no final dará errado.',
-    'Você não pode mudar seu passado. Mas pode estragar seu futuro.',
-    'Trabalhe com o que você ama e nunca mais vai amar nada.',
-    'Pare de desejar e comece a desistir.',
-    'O caminho é longo, mas a derrota é certa.',
-    'Não sabendo que era impossível, foi lá e soube.',
-    'Não tenha medo do fracasso. Tenha costume.',
-    'Nunca é tarde para desistir.',
-    'Você é mais fraco que pensa.',
-    'No começo tava ruim. Agora parece o começo.',
-    'Penso, logo desisto.',
-    'Nunca foi azar, sempre foi incompetência.',
-    'Seu maior problema é você.',
-    'O não você já tem. Busque a humilhação.',
-    'Lute como nunca. Perca como sempre.',
-    'Reclame menos. Fracasse mais.',
-    'Nunca deixe ninguém dizer que você não consegue. Diga você mesmo: EU NÃO CONSIGO!',
-  ]
 
   function handleText(){
     let randonNumber = Math.floor(Math.random() * sentences.length)
@@ -38,23 +20,24 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={img}
-        style={styles.img}
-      />
+      <Text style={[styles.title, {opacity: text.length !== 0 ? 0.3 : 1 }]}>Quebre o biscoito</Text>
+      <TouchableOpacity 
+        onPress={handleText}
+        disabled={text.length > 0}  
+      >
+        <Image
+          source={img}
+          style={styles.img}
+        />
+      </TouchableOpacity>
       <Text style={styles.text}>{text}</Text>
       <TouchableOpacity 
-        style={[styles.btn, { opacity: text.length > 0 ? 0.3 : 1 }]} 
-        onPress={handleText}
-        disabled={text.length > 0}
+        style={[styles.btn, { opacity: text.length === 0 ? 0.3 : 1 }]} 
+        onPress={handleRestart}
+        disabled={text.length === 0}  
       >
         <View style={styles.btn_container}>
-          <Text style={styles.btn_text}>Quebrar biscoito</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.btn, { marginTop: 15, borderColor:'#121212' }]} onPress={handleRestart}>
-        <View style={styles.btn_container}>
-          <Text style={[styles.btn_text, { color: '#121212' }]}>Reiniciar biscoito</Text>
+          <Text style={styles.btn_text}>Reiniciar</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -67,6 +50,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fcfcfc',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: 25,
+    fontWeight:'bold',
+    margin: 20,
+    color: '#dd7b22',
   },
   img: {
     width: 230,
